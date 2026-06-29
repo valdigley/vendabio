@@ -23,76 +23,72 @@ export default function AdminDashboard() {
   `).all() as { nome: string; id: string; total_cliques: number }[];
 
   const stats = [
-    { label: "Produtos Ativos", value: produtosAtivos, total: totalProdutos, color: "bg-blue-500", href: "/admin/produtos" },
-    { label: "Cliques Hoje", value: cliquesHoje, total: cliquesTotal, color: "bg-green-500", href: "/admin/analiticos" },
-    { label: "Cliques na Semana", value: cliquesSemana, total: cliquesTotal, color: "bg-purple-500", href: "/admin/analiticos" },
-    { label: "Sugestões Pendentes", value: sugestoesPendentes, total: null, color: "bg-orange-500", href: "/admin/sugestoes" },
+    { label: "Produtos ativos", value: produtosAtivos, detail: `${totalProdutos} total`, href: "/admin/produtos" },
+    { label: "Cliques hoje", value: cliquesHoje, detail: `${cliquesTotal} total`, href: "/admin/analiticos" },
+    { label: "Cliques na semana", value: cliquesSemana, detail: `${cliquesTotal} total`, href: "/admin/analiticos" },
+    { label: "Sugestoes pendentes", value: sugestoesPendentes, detail: null, href: "/admin/sugestoes" },
   ];
 
   return (
-    <div className="space-y-6">
-      {/* Stats */}
+    <div className="space-y-8">
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {stats.map((stat) => (
-          <Link key={stat.label} href={stat.href} className="bg-white rounded-xl border border-gray-200 p-4 hover:shadow-md transition-shadow">
-            <div className={`w-2 h-2 rounded-full ${stat.color} mb-2`} />
-            <p className="text-2xl font-bold text-gray-900">{stat.value}</p>
-            <p className="text-sm text-gray-500">{stat.label}</p>
-            {stat.total !== null && (
-              <p className="text-xs text-gray-400 mt-1">de {stat.total} total</p>
+          <Link key={stat.label} href={stat.href} className="bg-white rounded-2xl border border-[#e8e8ed] p-5 hover:shadow-md transition-all group">
+            <p className="text-[28px] font-semibold text-[#1d1d1f] tracking-tight">{stat.value}</p>
+            <p className="text-[13px] text-[#86868b] mt-1">{stat.label}</p>
+            {stat.detail && (
+              <p className="text-[11px] text-[#d2d2d7] mt-0.5">{stat.detail}</p>
             )}
           </Link>
         ))}
       </div>
 
-      {/* Quick actions */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <Link
           href="/admin/produtos/novo"
-          className="bg-purple-600 text-white rounded-xl p-4 hover:bg-purple-700 transition-colors flex items-center gap-3"
+          className="bg-[#1d1d1f] text-white rounded-2xl p-5 hover:bg-[#2d2d2f] transition-colors"
         >
-          <span className="text-2xl">➕</span>
-          <div>
-            <p className="font-semibold">Adicionar Produto</p>
-            <p className="text-purple-200 text-sm">Cadastrar manualmente</p>
-          </div>
+          <svg className="w-5 h-5 mb-3 text-[#86868b]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 4v16m8-8H4" />
+          </svg>
+          <p className="font-semibold text-[15px]">Adicionar produto</p>
+          <p className="text-[#86868b] text-[13px] mt-0.5">Cadastrar manualmente</p>
         </Link>
 
         <Link
           href="/admin/sugestoes"
-          className="bg-orange-500 text-white rounded-xl p-4 hover:bg-orange-600 transition-colors flex items-center gap-3"
+          className="bg-white rounded-2xl border border-[#e8e8ed] p-5 hover:shadow-md transition-all"
         >
-          <span className="text-2xl">🔍</span>
-          <div>
-            <p className="font-semibold">Ver Sugestões</p>
-            <p className="text-orange-100 text-sm">{sugestoesPendentes} pendentes</p>
-          </div>
+          <svg className="w-5 h-5 mb-3 text-[#86868b]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+          <p className="font-semibold text-[15px] text-[#1d1d1f]">Ver sugestoes</p>
+          <p className="text-[#86868b] text-[13px] mt-0.5">{sugestoesPendentes} pendentes</p>
         </Link>
 
         <Link
           href="/admin/roteiros"
-          className="bg-indigo-600 text-white rounded-xl p-4 hover:bg-indigo-700 transition-colors flex items-center gap-3"
+          className="bg-white rounded-2xl border border-[#e8e8ed] p-5 hover:shadow-md transition-all"
         >
-          <span className="text-2xl">🎬</span>
-          <div>
-            <p className="font-semibold">Gerar Roteiro</p>
-            <p className="text-indigo-200 text-sm">Criar conteúdo de venda</p>
-          </div>
+          <svg className="w-5 h-5 mb-3 text-[#86868b]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+          </svg>
+          <p className="font-semibold text-[15px] text-[#1d1d1f]">Gerar roteiro</p>
+          <p className="text-[#86868b] text-[13px] mt-0.5">Criar conteudo de venda</p>
         </Link>
       </div>
 
-      {/* Top products */}
       {topProdutos.length > 0 && (
-        <div className="bg-white rounded-xl border border-gray-200 p-4">
-          <h3 className="font-semibold text-gray-900 mb-3">Top Produtos por Cliques</h3>
-          <div className="space-y-2">
+        <div className="bg-white rounded-2xl border border-[#e8e8ed] p-5">
+          <h3 className="text-[13px] font-medium uppercase tracking-widest text-[#86868b] mb-4">Top produtos</h3>
+          <div className="space-y-3">
             {topProdutos.map((p, i) => (
               <div key={p.id} className="flex items-center gap-3">
-                <span className="text-sm font-bold text-gray-400 w-5">{i + 1}</span>
+                <span className="text-[13px] font-semibold text-[#d2d2d7] w-5 text-right">{i + 1}</span>
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm text-gray-700 truncate">{p.nome}</p>
+                  <p className="text-[14px] text-[#1d1d1f] truncate">{p.nome}</p>
                 </div>
-                <span className="text-sm font-semibold text-purple-600">{p.total_cliques} cliques</span>
+                <span className="text-[13px] font-medium text-[#86868b]">{p.total_cliques}</span>
               </div>
             ))}
           </div>

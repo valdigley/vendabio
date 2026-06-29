@@ -41,18 +41,18 @@ export default function RoteirosPage() {
   }
 
   return (
-    <div className="max-w-3xl space-y-4">
-      <div className="bg-white rounded-xl border border-gray-200 p-5">
-        <h2 className="font-semibold text-gray-900 mb-3">Gerar Roteiro de Venda</h2>
-        <p className="text-sm text-gray-500 mb-4">
-          Selecione um produto e gere roteiros, dicas de filmagem, hashtags e legendas para seus vídeos de venda.
+    <div className="max-w-3xl space-y-5">
+      <div className="bg-white rounded-2xl border border-[#e8e8ed] p-6">
+        <h2 className="text-[15px] font-semibold text-[#1d1d1f] mb-1">Gerar roteiro de venda</h2>
+        <p className="text-[13px] text-[#86868b] mb-5">
+          Selecione um produto para gerar roteiro, dicas de filmagem, hashtags e legendas.
         </p>
 
         <div className="flex gap-3">
           <select
             value={selectedId}
             onChange={(e) => setSelectedId(e.target.value)}
-            className="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+            className="flex-1 px-3.5 py-2.5 border border-[#e8e8ed] rounded-xl text-[14px] text-[#1d1d1f] focus:ring-2 focus:ring-[#1d1d1f] focus:border-transparent outline-none bg-[#fafafa]"
           >
             <option value="">Selecione um produto...</option>
             {produtos.map((p) => (
@@ -62,109 +62,90 @@ export default function RoteirosPage() {
           <button
             onClick={gerarRoteiro}
             disabled={!selectedId || loading}
-            className="bg-indigo-600 text-white px-5 py-2 rounded-lg text-sm font-medium hover:bg-indigo-700 transition-colors disabled:opacity-50 whitespace-nowrap"
+            className="bg-[#1d1d1f] text-white px-5 py-2.5 rounded-full text-[14px] font-medium hover:bg-[#2d2d2f] transition-colors disabled:opacity-40 whitespace-nowrap"
           >
-            {loading ? "Gerando..." : "Gerar Roteiro"}
+            {loading ? "Gerando..." : "Gerar"}
           </button>
         </div>
       </div>
 
       {loading && (
-        <div className="bg-white rounded-xl border border-gray-200 p-8 text-center">
-          <p className="text-2xl animate-pulse-slow">🎬</p>
-          <p className="text-gray-500 mt-2">Gerando roteiro...</p>
+        <div className="bg-white rounded-2xl border border-[#e8e8ed] p-10 text-center">
+          <svg className="animate-spin w-6 h-6 mx-auto text-[#86868b]" viewBox="0 0 24 24" fill="none">
+            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+          </svg>
+          <p className="text-[#86868b] text-[14px] mt-3">Gerando roteiro...</p>
         </div>
       )}
 
       {roteiro && (
-        <div className="space-y-4 animate-fade-in">
-          {/* Título do vídeo */}
-          <Section
-            title="Título para o Vídeo"
-            icon="🎯"
+        <div className="space-y-4">
+          <TextBlock
+            label="Titulo do video"
             content={roteiro.titulo_video}
             onCopy={() => copiar(roteiro.titulo_video, "titulo")}
             copied={copied === "titulo"}
           />
 
-          {/* Roteiro */}
-          <div className="bg-white rounded-xl border border-gray-200 p-5">
-            <div className="flex items-center justify-between mb-3">
-              <h3 className="font-semibold text-gray-900 flex items-center gap-2">
-                <span>🎬</span> Roteiro do Vídeo
-              </h3>
-              <button
+          <div className="bg-white rounded-2xl border border-[#e8e8ed] p-5">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-[13px] font-medium uppercase tracking-widest text-[#86868b]">Roteiro</h3>
+              <CopyBtn
                 onClick={() => copiar(`${roteiro.gancho}\n\n${roteiro.demonstracao}\n\n${roteiro.cta}`, "roteiro")}
-                className="text-xs text-purple-600 hover:text-purple-800 font-medium"
-              >
-                {copied === "roteiro" ? "Copiado!" : "Copiar tudo"}
-              </button>
+                copied={copied === "roteiro"}
+              />
             </div>
-
             <div className="space-y-3">
-              <div className="bg-yellow-50 border border-yellow-100 rounded-lg p-3">
-                <p className="text-xs font-semibold text-yellow-700 mb-1">GANCHO (primeiros 3 segundos)</p>
-                <p className="text-sm text-gray-800">{roteiro.gancho}</p>
+              <div className="bg-[#fafafa] rounded-xl p-4 border border-[#e8e8ed]">
+                <p className="text-[11px] font-semibold text-[#86868b] uppercase tracking-wider mb-1.5">Gancho</p>
+                <p className="text-[14px] text-[#1d1d1f] leading-relaxed">{roteiro.gancho}</p>
               </div>
-              <div className="bg-blue-50 border border-blue-100 rounded-lg p-3">
-                <p className="text-xs font-semibold text-blue-700 mb-1">DEMONSTRAÇÃO</p>
-                <p className="text-sm text-gray-800">{roteiro.demonstracao}</p>
+              <div className="bg-[#fafafa] rounded-xl p-4 border border-[#e8e8ed]">
+                <p className="text-[11px] font-semibold text-[#86868b] uppercase tracking-wider mb-1.5">Demonstracao</p>
+                <p className="text-[14px] text-[#1d1d1f] leading-relaxed">{roteiro.demonstracao}</p>
               </div>
-              <div className="bg-green-50 border border-green-100 rounded-lg p-3">
-                <p className="text-xs font-semibold text-green-700 mb-1">CTA (chamada para ação)</p>
-                <p className="text-sm text-gray-800">{roteiro.cta}</p>
+              <div className="bg-[#fafafa] rounded-xl p-4 border border-[#e8e8ed]">
+                <p className="text-[11px] font-semibold text-[#86868b] uppercase tracking-wider mb-1.5">CTA</p>
+                <p className="text-[14px] text-[#1d1d1f] leading-relaxed">{roteiro.cta}</p>
               </div>
             </div>
           </div>
 
-          {/* Dicas */}
-          <div className="bg-white rounded-xl border border-gray-200 p-5">
-            <h3 className="font-semibold text-gray-900 flex items-center gap-2 mb-3">
-              <span>💡</span> Dicas de Filmagem
-            </h3>
+          <div className="bg-white rounded-2xl border border-[#e8e8ed] p-5">
+            <h3 className="text-[13px] font-medium uppercase tracking-widest text-[#86868b] mb-3">Dicas de filmagem</h3>
             <ul className="space-y-2">
               {roteiro.dicas_filmagem.map((dica, i) => (
-                <li key={i} className="flex items-start gap-2 text-sm text-gray-700">
-                  <span className="text-purple-500 mt-0.5">•</span>
+                <li key={i} className="flex items-start gap-2.5 text-[14px] text-[#1d1d1f]">
+                  <span className="text-[#d2d2d7] mt-0.5 text-[10px]">&#9679;</span>
                   {dica}
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Hashtags */}
-          <Section
-            title="Hashtags"
-            icon="#️⃣"
+          <TextBlock
+            label="Hashtags"
             content={roteiro.hashtags.join(" ")}
             onCopy={() => copiar(roteiro.hashtags.join(" "), "hashtags")}
             copied={copied === "hashtags"}
           />
 
-          {/* Legenda */}
-          <div className="bg-white rounded-xl border border-gray-200 p-5">
+          <div className="bg-white rounded-2xl border border-[#e8e8ed] p-5">
             <div className="flex items-center justify-between mb-3">
-              <h3 className="font-semibold text-gray-900 flex items-center gap-2">
-                <span>📝</span> Legenda para Post
-              </h3>
-              <button
-                onClick={() => copiar(roteiro.legenda, "legenda")}
-                className="text-xs text-purple-600 hover:text-purple-800 font-medium"
-              >
-                {copied === "legenda" ? "Copiado!" : "Copiar"}
-              </button>
+              <h3 className="text-[13px] font-medium uppercase tracking-widest text-[#86868b]">Legenda</h3>
+              <CopyBtn onClick={() => copiar(roteiro.legenda, "legenda")} copied={copied === "legenda"} />
             </div>
-            <pre className="text-sm text-gray-700 whitespace-pre-wrap font-sans bg-gray-50 rounded-lg p-3">
+            <pre className="text-[14px] text-[#1d1d1f] whitespace-pre-wrap font-sans bg-[#fafafa] rounded-xl p-4 border border-[#e8e8ed]">
               {roteiro.legenda}
             </pre>
           </div>
 
-          {/* Regenerate */}
           <button
             onClick={gerarRoteiro}
-            className="w-full py-2.5 text-sm text-purple-600 font-medium border border-purple-200 rounded-lg hover:bg-purple-50 transition-colors"
+            className="w-full py-2.5 text-[14px] text-[#86868b] font-medium border border-[#e8e8ed] rounded-full hover:bg-[#f5f5f7] transition-colors"
           >
-            🔄 Gerar Outro Roteiro
+            Gerar outro roteiro
           </button>
         </div>
       )}
@@ -172,33 +153,22 @@ export default function RoteirosPage() {
   );
 }
 
-function Section({
-  title,
-  icon,
-  content,
-  onCopy,
-  copied,
-}: {
-  title: string;
-  icon: string;
-  content: string;
-  onCopy: () => void;
-  copied: boolean;
-}) {
+function TextBlock({ label, content, onCopy, copied }: { label: string; content: string; onCopy: () => void; copied: boolean }) {
   return (
-    <div className="bg-white rounded-xl border border-gray-200 p-5">
+    <div className="bg-white rounded-2xl border border-[#e8e8ed] p-5">
       <div className="flex items-center justify-between mb-2">
-        <h3 className="font-semibold text-gray-900 flex items-center gap-2">
-          <span>{icon}</span> {title}
-        </h3>
-        <button
-          onClick={onCopy}
-          className="text-xs text-purple-600 hover:text-purple-800 font-medium"
-        >
-          {copied ? "Copiado!" : "Copiar"}
-        </button>
+        <h3 className="text-[13px] font-medium uppercase tracking-widest text-[#86868b]">{label}</h3>
+        <CopyBtn onClick={onCopy} copied={copied} />
       </div>
-      <p className="text-sm text-gray-700 bg-gray-50 rounded-lg p-3">{content}</p>
+      <p className="text-[14px] text-[#1d1d1f] bg-[#fafafa] rounded-xl p-4 border border-[#e8e8ed]">{content}</p>
     </div>
+  );
+}
+
+function CopyBtn({ onClick, copied }: { onClick: () => void; copied: boolean }) {
+  return (
+    <button onClick={onClick} className="text-[12px] text-[#86868b] hover:text-[#1d1d1f] font-medium transition-colors">
+      {copied ? "Copiado" : "Copiar"}
+    </button>
   );
 }

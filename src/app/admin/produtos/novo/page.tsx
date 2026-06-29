@@ -47,13 +47,13 @@ export default function NovoProdutoPage() {
 
   return (
     <div className="max-w-2xl">
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div className="bg-white rounded-xl border border-gray-200 p-5 space-y-4">
-          <h2 className="font-semibold text-gray-900">Informações do Produto</h2>
+      <form onSubmit={handleSubmit} className="space-y-5">
+        <div className="bg-white rounded-2xl border border-[#e8e8ed] p-6 space-y-5">
+          <h2 className="text-[15px] font-semibold text-[#1d1d1f]">Informacoes do produto</h2>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Link de Afiliado *
+            <label className="block text-[13px] font-medium text-[#86868b] mb-1.5">
+              Link de afiliado
             </label>
             <input
               type="url"
@@ -61,18 +61,18 @@ export default function NovoProdutoPage() {
               onChange={(e) => update("link_afiliado", e.target.value)}
               placeholder="https://..."
               required
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+              className="w-full px-3.5 py-2.5 border border-[#e8e8ed] rounded-xl text-[14px] text-[#1d1d1f] focus:ring-2 focus:ring-[#1d1d1f] focus:border-transparent outline-none transition-shadow bg-[#fafafa]"
             />
             {form.link_afiliado && (
-              <p className="text-xs text-gray-500 mt-1">
-                Plataforma detectada: {detectPlatform(form.link_afiliado)}
+              <p className="text-[11px] text-[#86868b] mt-1.5">
+                Plataforma: {detectPlatform(form.link_afiliado)}
               </p>
             )}
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Nome do Produto *
+            <label className="block text-[13px] font-medium text-[#86868b] mb-1.5">
+              Nome do produto
             </label>
             <input
               type="text"
@@ -80,27 +80,27 @@ export default function NovoProdutoPage() {
               onChange={(e) => update("nome", e.target.value)}
               placeholder="Ex: Fone Bluetooth TWS"
               required
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+              className="w-full px-3.5 py-2.5 border border-[#e8e8ed] rounded-xl text-[14px] text-[#1d1d1f] focus:ring-2 focus:ring-[#1d1d1f] focus:border-transparent outline-none transition-shadow bg-[#fafafa]"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Descrição
+            <label className="block text-[13px] font-medium text-[#86868b] mb-1.5">
+              Descricao
             </label>
             <textarea
               value={form.descricao}
               onChange={(e) => update("descricao", e.target.value)}
-              placeholder="Descrição curta do produto"
+              placeholder="Descricao curta do produto"
               rows={2}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-purple-500 focus:border-transparent resize-none"
+              className="w-full px-3.5 py-2.5 border border-[#e8e8ed] rounded-xl text-[14px] text-[#1d1d1f] focus:ring-2 focus:ring-[#1d1d1f] focus:border-transparent outline-none transition-shadow resize-none bg-[#fafafa]"
             />
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Preço (R$)
+              <label className="block text-[13px] font-medium text-[#86868b] mb-1.5">
+                Preco (R$)
               </label>
               <input
                 type="number"
@@ -108,12 +108,12 @@ export default function NovoProdutoPage() {
                 value={form.preco}
                 onChange={(e) => update("preco", e.target.value)}
                 placeholder="99.90"
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                className="w-full px-3.5 py-2.5 border border-[#e8e8ed] rounded-xl text-[14px] text-[#1d1d1f] focus:ring-2 focus:ring-[#1d1d1f] focus:border-transparent outline-none transition-shadow bg-[#fafafa]"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Preço Original (R$)
+              <label className="block text-[13px] font-medium text-[#86868b] mb-1.5">
+                Preco original (R$)
               </label>
               <input
                 type="number"
@@ -121,28 +121,28 @@ export default function NovoProdutoPage() {
                 value={form.preco_original}
                 onChange={(e) => update("preco_original", e.target.value)}
                 placeholder="149.90"
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                className="w-full px-3.5 py-2.5 border border-[#e8e8ed] rounded-xl text-[14px] text-[#1d1d1f] focus:ring-2 focus:ring-[#1d1d1f] focus:border-transparent outline-none transition-shadow bg-[#fafafa]"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              URL da Imagem
+            <label className="block text-[13px] font-medium text-[#86868b] mb-1.5">
+              URL da imagem
             </label>
             <input
               type="url"
               value={form.imagem_url}
               onChange={(e) => update("imagem_url", e.target.value)}
               placeholder="https://..."
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+              className="w-full px-3.5 py-2.5 border border-[#e8e8ed] rounded-xl text-[14px] text-[#1d1d1f] focus:ring-2 focus:ring-[#1d1d1f] focus:border-transparent outline-none transition-shadow bg-[#fafafa]"
             />
             {form.imagem_url && (
               <div className="mt-2">
                 <img
                   src={form.imagem_url}
                   alt="Preview"
-                  className="w-20 h-20 rounded-lg object-cover border"
+                  className="w-16 h-16 rounded-xl object-cover border border-[#e8e8ed]"
                   onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
                 />
               </div>
@@ -150,13 +150,13 @@ export default function NovoProdutoPage() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-[13px] font-medium text-[#86868b] mb-1.5">
               Categoria
             </label>
             <select
               value={form.categoria}
               onChange={(e) => update("categoria", e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+              className="w-full px-3.5 py-2.5 border border-[#e8e8ed] rounded-xl text-[14px] text-[#1d1d1f] focus:ring-2 focus:ring-[#1d1d1f] focus:border-transparent outline-none transition-shadow bg-[#fafafa]"
             >
               {Object.entries(CATEGORIAS).map(([key, label]) => (
                 <option key={key} value={key}>{label}</option>
@@ -169,14 +169,14 @@ export default function NovoProdutoPage() {
           <button
             type="submit"
             disabled={saving || !form.nome || !form.link_afiliado}
-            className="bg-purple-600 text-white px-6 py-2.5 rounded-lg text-sm font-medium hover:bg-purple-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="bg-[#1d1d1f] text-white px-6 py-2.5 rounded-full text-[14px] font-medium hover:bg-[#2d2d2f] transition-colors disabled:opacity-40"
           >
-            {saving ? "Salvando..." : "Salvar Produto"}
+            {saving ? "Salvando..." : "Salvar"}
           </button>
           <button
             type="button"
             onClick={() => router.back()}
-            className="px-6 py-2.5 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100 transition-colors"
+            className="px-6 py-2.5 rounded-full text-[14px] font-medium text-[#86868b] hover:bg-[#f5f5f7] transition-colors"
           >
             Cancelar
           </button>

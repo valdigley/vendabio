@@ -25,7 +25,7 @@ export default function AnaliticosPage() {
     setLoading(true);
     fetch(`${BASE_PATH}/api/produtos`)
       .then((r) => r.json())
-      .then(async (produtos) => {
+      .then(async () => {
         const res = await fetch(`${BASE_PATH}/api/analiticos?dias=${periodo}`);
         if (res.ok) {
           const data = await res.json();
@@ -45,16 +45,16 @@ export default function AnaliticosPage() {
   const maxCliques = Math.max(...topProdutos.map((p) => p.total), 1);
 
   return (
-    <div className="space-y-4">
-      <div className="flex items-center gap-2">
+    <div className="space-y-5">
+      <div className="flex gap-1.5 bg-[#f5f5f7] p-1 rounded-xl w-fit">
         {(["7", "30", "90"] as const).map((p) => (
           <button
             key={p}
             onClick={() => setPeriodo(p)}
-            className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
+            className={`px-3.5 py-1.5 rounded-lg text-[13px] font-medium transition-colors ${
               periodo === p
-                ? "bg-purple-600 text-white"
-                : "bg-white text-gray-600 border border-gray-200 hover:bg-gray-50"
+                ? "bg-white text-[#1d1d1f] shadow-sm"
+                : "text-[#86868b] hover:text-[#1d1d1f]"
             }`}
           >
             {p} dias
@@ -63,31 +63,32 @@ export default function AnaliticosPage() {
       </div>
 
       {loading ? (
-        <div className="bg-white rounded-xl border border-gray-200 p-8 text-center">
-          <p className="text-gray-500">Carregando...</p>
+        <div className="bg-white rounded-2xl border border-[#e8e8ed] p-10 text-center">
+          <p className="text-[#86868b] text-[14px]">Carregando...</p>
         </div>
       ) : (
         <>
-          <div className="bg-white rounded-xl border border-gray-200 p-5">
-            <p className="text-sm text-gray-500">Total de cliques ({periodo} dias)</p>
-            <p className="text-3xl font-bold text-gray-900">{totalCliques}</p>
+          <div className="bg-white rounded-2xl border border-[#e8e8ed] p-6">
+            <p className="text-[13px] text-[#86868b]">Total de cliques</p>
+            <p className="text-[36px] font-semibold text-[#1d1d1f] tracking-tight">{totalCliques}</p>
+            <p className="text-[12px] text-[#d2d2d7]">ultimos {periodo} dias</p>
           </div>
 
-          <div className="bg-white rounded-xl border border-gray-200 p-5">
-            <h3 className="font-semibold text-gray-900 mb-4">Cliques por Produto</h3>
+          <div className="bg-white rounded-2xl border border-[#e8e8ed] p-6">
+            <h3 className="text-[13px] font-medium uppercase tracking-widest text-[#86868b] mb-5">Por produto</h3>
             {topProdutos.length === 0 ? (
-              <p className="text-sm text-gray-500">Nenhum clique registrado neste período</p>
+              <p className="text-[14px] text-[#86868b]">Nenhum clique registrado</p>
             ) : (
-              <div className="space-y-3">
+              <div className="space-y-4">
                 {topProdutos.map((p) => (
                   <div key={p.id}>
-                    <div className="flex justify-between text-sm mb-1">
-                      <span className="text-gray-700 truncate pr-4">{p.nome}</span>
-                      <span className="font-semibold text-purple-600 flex-shrink-0">{p.total}</span>
+                    <div className="flex justify-between text-[13px] mb-1.5">
+                      <span className="text-[#1d1d1f] truncate pr-4">{p.nome}</span>
+                      <span className="font-semibold text-[#1d1d1f] flex-shrink-0">{p.total}</span>
                     </div>
-                    <div className="w-full bg-gray-100 rounded-full h-2">
+                    <div className="w-full bg-[#f5f5f7] rounded-full h-1.5">
                       <div
-                        className="bg-purple-500 h-2 rounded-full transition-all duration-500"
+                        className="bg-[#1d1d1f] h-1.5 rounded-full transition-all duration-500"
                         style={{ width: `${(p.total / maxCliques) * 100}%` }}
                       />
                     </div>
@@ -98,20 +99,20 @@ export default function AnaliticosPage() {
           </div>
 
           {porDia.length > 0 && (
-            <div className="bg-white rounded-xl border border-gray-200 p-5">
-              <h3 className="font-semibold text-gray-900 mb-4">Cliques por Dia</h3>
+            <div className="bg-white rounded-2xl border border-[#e8e8ed] p-6">
+              <h3 className="text-[13px] font-medium uppercase tracking-widest text-[#86868b] mb-5">Por dia</h3>
               <div className="flex items-end gap-1 h-32">
                 {porDia.map((d) => {
                   const maxDia = Math.max(...porDia.map((x) => x.total), 1);
                   const height = (d.total / maxDia) * 100;
                   return (
                     <div key={d.dia} className="flex-1 flex flex-col items-center gap-1">
-                      <span className="text-xs text-gray-500">{d.total}</span>
+                      <span className="text-[11px] text-[#86868b]">{d.total}</span>
                       <div
-                        className="w-full bg-indigo-400 rounded-t min-h-[4px] transition-all duration-500"
+                        className="w-full bg-[#1d1d1f] rounded-t min-h-[4px] transition-all duration-500"
                         style={{ height: `${height}%` }}
                       />
-                      <span className="text-[10px] text-gray-400 truncate w-full text-center">
+                      <span className="text-[10px] text-[#d2d2d7] truncate w-full text-center">
                         {d.dia.slice(5)}
                       </span>
                     </div>
