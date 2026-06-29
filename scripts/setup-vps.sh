@@ -85,7 +85,7 @@ REMOTE=$(git rev-parse "origin/$BRANCH")
 if [ "$LOCAL" != "$REMOTE" ]; then
   echo "$(date): Nova versão detectada, atualizando..."
   git reset --hard "origin/$BRANCH"
-  npm install 2>/dev/null
+  npm install --include=dev 2>/dev/null
   npm run build
   pm2 restart vendabio
   echo "$(date): Deploy concluído!"
