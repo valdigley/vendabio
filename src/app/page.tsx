@@ -1,6 +1,6 @@
 import { getDb } from "@/lib/db";
 import type { Produto, Configuracao } from "@/types";
-import { formatPrice } from "@/lib/utils";
+import { formatPrice, BASE_PATH } from "@/lib/utils";
 import { CATEGORIAS } from "@/types";
 
 export const dynamic = "force-dynamic";
@@ -83,7 +83,7 @@ export default function BioPage() {
                 {catProdutos.map((produto, index) => (
                   <a
                     key={produto.id}
-                    href={`/api/cliques/${produto.id}`}
+                    href={`${BASE_PATH}/api/cliques/${produto.id}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="block animate-fade-in"

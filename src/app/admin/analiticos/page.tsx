@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { BASE_PATH } from "@/lib/utils";
 
 interface ProdutoCliques {
   nome: string;
@@ -22,10 +23,10 @@ export default function AnaliticosPage() {
 
   useEffect(() => {
     setLoading(true);
-    fetch(`/api/produtos`)
+    fetch(`${BASE_PATH}/api/produtos`)
       .then((r) => r.json())
       .then(async (produtos) => {
-        const res = await fetch(`/api/analiticos?dias=${periodo}`);
+        const res = await fetch(`${BASE_PATH}/api/analiticos?dias=${periodo}`);
         if (res.ok) {
           const data = await res.json();
           setTopProdutos(data.topProdutos || []);

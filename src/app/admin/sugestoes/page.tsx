@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { formatPrice } from "@/lib/utils";
+import { formatPrice, BASE_PATH } from "@/lib/utils";
 import { CATEGORIAS, PLATAFORMAS } from "@/types";
 import type { Sugestao, CategoriaKey, PlataformaKey } from "@/types";
 
@@ -14,7 +14,7 @@ export default function SugestoesPage() {
 
   function carregarSugestoes() {
     setLoading(true);
-    fetch(`/api/sugestoes?status=${filtro}`)
+    fetch(`${BASE_PATH}/api/sugestoes?status=${filtro}`)
       .then((r) => r.json())
       .then(setSugestoes)
       .finally(() => setLoading(false));
@@ -28,7 +28,7 @@ export default function SugestoesPage() {
     setPesquisando(true);
     setMensagem("");
     try {
-      const res = await fetch("/api/pesquisa", { method: "POST" });
+      const res = await fetch(`${BASE_PATH}/api/pesquisa`, { method: "POST" });
       const data = await res.json();
       setMensagem(data.mensagem || `${data.novas} novos produtos encontrados!`);
       if (filtro === "pendente") carregarSugestoes();
@@ -45,7 +45,7 @@ export default function SugestoesPage() {
       link = prompt("Cole o link de afiliado para este produto (ou deixe vazio para usar o link original):") || undefined;
     }
 
-    await fetch(`/api/sugestoes/${id}`, {
+    await fetch(`${BASE_PATH}/api/sugestoes/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ status, link_afiliado: link }),

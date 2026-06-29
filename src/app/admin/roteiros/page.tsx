@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { BASE_PATH } from "@/lib/utils";
 import type { Produto, Roteiro } from "@/types";
 
 export default function RoteirosPage() {
@@ -11,7 +12,7 @@ export default function RoteirosPage() {
   const [copied, setCopied] = useState("");
 
   useEffect(() => {
-    fetch("/api/produtos?ativo=true")
+    fetch(`${BASE_PATH}/api/produtos?ativo=true`)
       .then((r) => r.json())
       .then(setProdutos);
   }, []);
@@ -21,7 +22,7 @@ export default function RoteirosPage() {
     setLoading(true);
     setRoteiro(null);
     try {
-      const res = await fetch("/api/roteiros", {
+      const res = await fetch(`${BASE_PATH}/api/roteiros`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ produtoId: selectedId }),

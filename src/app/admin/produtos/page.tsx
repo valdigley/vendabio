@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { formatPrice } from "@/lib/utils";
+import { formatPrice, BASE_PATH } from "@/lib/utils";
 import { CATEGORIAS, PLATAFORMAS } from "@/types";
 import type { Produto, CategoriaKey, PlataformaKey } from "@/types";
 
@@ -11,14 +11,14 @@ export default function ProdutosPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("/api/produtos")
+    fetch(`${BASE_PATH}/api/produtos`)
       .then((r) => r.json())
       .then(setProdutos)
       .finally(() => setLoading(false));
   }, []);
 
   async function toggleAtivo(id: string, ativo: number) {
-    await fetch(`/api/produtos/${id}`, {
+    await fetch(`${BASE_PATH}/api/produtos/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ ativo: ativo ? 0 : 1 }),
@@ -30,7 +30,7 @@ export default function ProdutosPage() {
 
   async function deleteProduto(id: string) {
     if (!confirm("Tem certeza que deseja excluir este produto?")) return;
-    await fetch(`/api/produtos/${id}`, { method: "DELETE" });
+    await fetch(`${BASE_PATH}/api/produtos/${id}`, { method: "DELETE" });
     setProdutos((prev) => prev.filter((p) => p.id !== id));
   }
 

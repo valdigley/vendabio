@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { CATEGORIAS } from "@/types";
-import { detectPlatform } from "@/lib/utils";
+import { detectPlatform, BASE_PATH } from "@/lib/utils";
 
 export default function NovoProdutoPage() {
   const router = useRouter();
@@ -29,7 +29,7 @@ export default function NovoProdutoPage() {
     setSaving(true);
     try {
       const plataforma = detectPlatform(form.link_afiliado);
-      await fetch("/api/produtos", {
+      await fetch(`${BASE_PATH}/api/produtos`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
