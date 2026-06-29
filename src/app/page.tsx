@@ -135,11 +135,7 @@ export default function BioPage() {
           </div>
         )}
 
-        <footer className="text-center mt-8 pb-4">
-          <p className="text-purple-400/50 text-xs">
-            Powered by VendaBio
-          </p>
-        </footer>
+        <footer className="mt-8 pb-4" />
       </div>
     </div>
   );
